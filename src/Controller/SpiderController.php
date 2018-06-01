@@ -50,7 +50,7 @@ class SpiderController extends Controller
 
         $client = new Client($headers);
         try {
-            $r = $client->request( 'GET', 'http://www.pap.minhafp.gob.es/bdnstrans/GE/es/convocatorias' );
+            $client->request( 'GET', 'http://www.pap.minhafp.gob.es/bdnstrans/GE/es/convocatorias' );
         } catch ( GuzzleException $e ) {
             echo $e->getMessage();
         }
@@ -78,7 +78,7 @@ class SpiderController extends Controller
             "_instrumentos"      => "1",
         );
 
-        $r = $client->post(
+        $client->post(
             'http://www.pap.minhafp.gob.es/bdnstrans/GE/es/convocatorias', array (
             'form_params' => $post_data
         ));
@@ -113,7 +113,6 @@ class SpiderController extends Controller
         curl_close( $ch );
 
         $data = json_decode( $erantzuna, true );
-        $miJson = json_encode( $data[ "rows" ] );
         $arr = array();
 
         if ( array_key_exists("rows", $data)) {
@@ -166,7 +165,11 @@ class SpiderController extends Controller
         // Lehen orria
         /** @var Client $client */
         $client = new Client($headers);
-        $r = $client->request('GET', 'http://www.pap.minhafp.gob.es/bdnstrans/GE/es/concesiones');
+        try {
+            $client->request( 'GET', 'http://www.pap.minhafp.gob.es/bdnstrans/GE/es/concesiones' );
+        } catch ( GuzzleException $e ) {
+            echo $e->getMessage();
+        }
 
         $post_data = array(
             "_ministerios"       => "1",
@@ -191,7 +194,7 @@ class SpiderController extends Controller
             "_instrumentos"      => "1",
         );
 
-        $r = $client->post(
+        $client->post(
             'http://www.pap.minhafp.gob.es/bdnstrans/GE/es/concesiones', array (
             'form_params' => $post_data
         ));
@@ -226,7 +229,6 @@ class SpiderController extends Controller
         curl_close( $ch );
 
         $data = json_decode( $erantzuna, true );
-        $miJson = json_encode( $data[ "rows" ] );
         $arr = array();
 
         $em = $this->getDoctrine()->getManager();
@@ -234,25 +236,6 @@ class SpiderController extends Controller
         if ( array_key_exists("rows", $data)) {
             if ($data["rows"] !== null) {
                 foreach ($data["rows"] as $a) {
-                    /** @var Konzesioa $k */
-                    $k = new Konzesioa();
-                    $k->setAdministracion( $a[ 2 ] );
-                    $k->setDepartamento( $a[ 3 ] );
-                    $k->setOrgano( $a[ 4 ] );
-                    $k->setTituloConvocatoria( $a[ 5 ] );
-                    $k->setBbReguladoras( $a[ 6 ] );
-                    $k->setAplicacionPresupuestaria( $a[ 7 ] );
-                    $k->setFechaConcesion( $a[ 8 ] );
-                    $k->setBeneficiario( $a[ 9 ] );
-                    $k->setImporte( $a[ 10 ] );
-                    $k->setInstrumento( $a[ 11 ] );
-                    $k->setAyudaEquivalente( $a[ 12 ] );
-                    $k->setDetalles( $a[ 13 ] );
-                    $em->persist( $k );
-
-
-
-
                     $temp = array(
                         'administracion'            => $a[ 2 ],
                         'departamento'              => $a[ 3 ],
@@ -283,7 +266,6 @@ class SpiderController extends Controller
 
         $nireCookie ="";
         $lehena = 1;
-        $resp="";
 
         foreach ($gaileta as $key => $val) {
 
