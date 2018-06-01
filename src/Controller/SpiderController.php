@@ -255,7 +255,11 @@ class SpiderController extends Controller
                 $em->flush();
             }
 
-            return new JsonResponse( $arr );
+            $response =new JsonResponse( $arr );
+            $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+
+            return $response;
         }
 
         return new JsonResponse( array( 'data' => 'No data',) );
