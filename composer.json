@@ -25,7 +25,8 @@
         "symfony/validator": "^4.1",
         "symfony/web-link": "^4.1",
         "symfony/webpack-encore-pack": "*",
-        "symfony/yaml": "^4.1"
+        "symfony/yaml": "^4.1",
+        "symfony/web-server-bundle": "^4.1"
     },
     "require-dev": {
         "deployer/deployer": "^6.2",
@@ -33,7 +34,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/profiler-pack": "*",
         "symfony/test-pack": "^1.0",
-        "symfony/web-server-bundle": "^4.1"
+
     },
     "config": {
         "preferred-install": {
