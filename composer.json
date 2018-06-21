@@ -24,9 +24,9 @@
         "symfony/twig-bundle": "^4.1",
         "symfony/validator": "^4.1",
         "symfony/web-link": "^4.1",
+        "symfony/web-server-bundle": "^4.1",
         "symfony/webpack-encore-pack": "*",
-        "symfony/yaml": "^4.1",
-        "symfony/web-server-bundle": "^4.1"
+        "symfony/yaml": "^4.1"
     },
     "require-dev": {
         "deployer/deployer": "^6.2",
